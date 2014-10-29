@@ -1,0 +1,49 @@
+<html>
+<head>
+	<title>Confidence</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="confidencetest.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div id="intro" class="steps visible">
+	<h1>Intoduction</h1>
+	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur id sed, sunt explicabo nobis eos, aliquam rerum. Eos iste debitis autem deserunt atque, minima esse, amet! Commodi laudantium consequatur, explicabo.
+	<br>
+	<button onclick="step_partisipatinfo()">Next</button>
+</div>
+
+<div id="participantinfo" class="steps">
+	<h1>Participant Info</h1>
+	<form name="info">
+		<h3>age</h3>
+		<label>
+			<input type="radio" name="age" value="20_25">
+		20-25 </label>
+		<label>
+			<input type="radio" name="age" value="25_30">
+		25-30
+		</label>
+		<label>
+			<input type="radio" name="age" value="30_35">
+		30-35
+		</label>
+	</form>	
+	<br>
+	<button onclick="step_trials()">Start Test</button>
+</div>
+
+<div id="trials" class="steps">
+	<h1>Trials</h1>
+
+</div>
+
+<div id="resume" class="steps">
+	<h1>Resume</h1>	
+	<p>Thank you for participation</p>
+	<button>Exit</button>
+</div>
+
+
+</body>
+</html>
