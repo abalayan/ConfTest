@@ -9,10 +9,12 @@ button{
 	color:blue;
 	border-radius: 5px;
 	border-color: black;
-	margin-top: 25px;
-	padding:12px;
+	margin: 25px auto;
+	display:block;
 	cursor: pointer;
-	float: right;
+	width:80px;
+	height:30px;
+	font-weight: bold; 
 }
 
 form{
