@@ -24,3 +24,11 @@ form{
 .visible{
 	display:block;
 }
+
+.words{
+	width:250;
+	display:block;
+	margin:25px auto;
+	font-size: 40px;
+	letter-spacing: 8px;
+}

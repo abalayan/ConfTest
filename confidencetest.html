@@ -2,11 +2,10 @@
 <head>
 	<title>Confidence</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="confidencetest.js" type="text/javascript"></script>
 </head>
 <body>
 
-<div id="intro" class="steps visible">
+<div id="intro" class="steps">
 	<h1>Intoduction</h1>
 	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur id sed, sunt explicabo nobis eos, aliquam rerum. Eos iste debitis autem deserunt atque, minima esse, amet! Commodi laudantium consequatur, explicabo.
 	<br>
@@ -33,9 +32,14 @@
 	<button onclick="step_trials()">Start Test</button>
 </div>
 
-<div id="trials" class="steps">
-	<h1>Trials</h1>
+<div id="trials" class="steps visible">
+	<div id="currseq" class="words">
 		
+	</div>
+
+	<div id="typedseq" class="words">
+		
+	</div>
 </div>
 
 <div id="resume" class="steps">
@@ -44,6 +48,6 @@
 	<button>Exit</button>
 </div>
 
-
+<script src="confidencetest.js" type="text/javascript"></script>
 </body>
 </html>

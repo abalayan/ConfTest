@@ -2,6 +2,7 @@ var BigramsEas = ['th','he','in','er','an','re','nd','at','on','nt','ha','es','s
 var BigramsHard =  ['hi','is','or','ti','as','te','et','ng','of','al','de','se','le','sa','si','ar','ve','ra','ld','ur','qi'];
 var Seqs = [];
 
+//console.log(Seqs);
 
 //generate Data
 BigramsEas = randomizearray(BigramsEas);
@@ -17,33 +18,103 @@ i=0;
 j=0;
 while(i<50 && j<50)
 {
-	Seqs.push([BigramsEasSeqs[i],BigramsHardSeqs[i],"EH"]);
+	Seqs.push([BigramsEasSeqs[i],BigramsHardSeqs[i],"EH","",[]]);
 	i++;
 	j++;
 }
 
 while(i<100)
 {
-	Seqs.push([BigramsEasSeqs[i],BigramsEasSeqs[i+50],"EE"]);
+	Seqs.push([BigramsEasSeqs[i],BigramsEasSeqs[i+50],"EE","",[]]);
 	i++;
 }
 
 while(j<100)
 {
-	Seqs.push([BigramsHardSeqs[j],BigramsHardSeqs[j+50],"HH"]);
+	Seqs.push([BigramsHardSeqs[j],BigramsHardSeqs[j+50],"HH","",[]]);
 	j++;
 }
 
 while(i<150 && j<150)
 {
-	Seqs.push([BigramsHardSeqs[i],BigramsEasSeqs[i],"HE"]);
+	Seqs.push([BigramsHardSeqs[i],BigramsEasSeqs[i],"HE","",[]]);
 	i++;
 	j++;
 }
 
 Seqs = randomizearray(Seqs);
 
+/*
+var Seqs = [
+	["dsdsdssdsadf","E","",""],
+	["fgdffssdsadf","H","",""],
+	["fgdffssdsadf","E","",""],
+	["fgdffssdsadf","H","",""],
+	["fgdffssdsadf","E","",""],
+	["fghgffsfsadf","E","",""],
+	["fdddddsdsadf","H","",""],
+	["fgdffssdsadf","H","",""],
+]*/
 //END of generate Data
+
+
+
+//Start Trials
+
+var seqDiv=document.getElementById("currseq");
+seqDiv.innerHTML=generateSequens(Seqs[0][0]);
+var typeDiv=document.getElementById("typedseq");
+
+
+
+function generateSequens(word,colorindex)
+{
+	colorindex = typeof colorindex !== 'undefined' ? colorindex : 0;
+	n="";
+	for (var i = 0; i<word.length; i++) 
+	{
+		
+		if(i==colorindex)
+		{
+			n+="<font color='green'>"+word[i]+"</font>";	
+		}
+		else
+		{
+			n+=word[i];	
+		}
+		
+		//console.log(n);
+	};
+	return n;
+}
+
+var curcharIndex = 0;
+var errors = [];
+var typestring = "";
+var typetimes = "";
+
+function dealWithKeyboard(e)
+{
+
+	typedchar = String.fromCharCode(e.charCode);
+	
+	var time = new Date().getTime();
+
+	if(Seqs[0][0][curcharIndex]==typedchar)
+	{
+		typeDiv.innerHTML+=typedchar;
+		curcharIndex++;
+		seqDiv.innerHTML=generateSequens(Seqs[0][0],curcharIndex);
+	}
+
+	typestring+=typedchar+"";
+	typetimes+=time+",";
+
+}
+
+//End of Trials
+
+
 
 //Flow finctions
 function step_partisipatinfo()
@@ -54,13 +125,15 @@ function step_partisipatinfo()
 	divv.className = "steps visible";
 }
 
-
+//TODO remove later
+step_trials();
 function step_trials()
 {
 	var divv = document.getElementById("participantinfo");
 	divv.className="steps";
 	var divv = document.getElementById("trials");
 	divv.className = "steps visible";
+	window.addEventListener("keypress", dealWithKeyboard, false);
 }
 
 
