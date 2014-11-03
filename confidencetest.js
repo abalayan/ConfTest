@@ -18,26 +18,26 @@ i=0;
 j=0;
 while(i<50 && j<50)
 {
-	Seqs.push([BigramsEasSeqs[i],BigramsHardSeqs[i],"EH","",[]]);
+	Seqs.push([BigramsEasSeqs[i],BigramsHardSeqs[i],"EH","",""]);
 	i++;
 	j++;
 }
 
 while(i<100)
 {
-	Seqs.push([BigramsEasSeqs[i],BigramsEasSeqs[i+50],"EE","",[]]);
+	Seqs.push([BigramsEasSeqs[i],BigramsEasSeqs[i+50],"EE","",""]);
 	i++;
 }
 
 while(j<100)
 {
-	Seqs.push([BigramsHardSeqs[j],BigramsHardSeqs[j+50],"HH","",[]]);
+	Seqs.push([BigramsHardSeqs[j],BigramsHardSeqs[j+50],"HH","",""]);
 	j++;
 }
 
 while(i<150 && j<150)
 {
-	Seqs.push([BigramsHardSeqs[i],BigramsEasSeqs[i],"HE","",[]]);
+	Seqs.push([BigramsHardSeqs[i],BigramsEasSeqs[i],"HE","",""]);
 	i++;
 	j++;
 }
@@ -60,9 +60,9 @@ var Seqs = [
 
 
 //Start Trials
-
+var trialId = 0; 
 var seqDiv=document.getElementById("currseq");
-seqDiv.innerHTML=generateSequens(Seqs[0][0]);
+var questDiv=document.getElementById("questdseq");
 var typeDiv=document.getElementById("typedseq");
 
 
@@ -100,15 +100,50 @@ function dealWithKeyboard(e)
 	
 	var time = new Date().getTime();
 
-	if(Seqs[0][0][curcharIndex]==typedchar)
+	if(Seqs[trialId][0][curcharIndex]==typedchar)
 	{
 		typeDiv.innerHTML+=typedchar;
 		curcharIndex++;
-		seqDiv.innerHTML=generateSequens(Seqs[0][0],curcharIndex);
+		seqDiv.innerHTML=generateSequens(Seqs[trialId][0],curcharIndex);
 	}
 
 	typestring+=typedchar+"";
 	typetimes+=time+",";
+
+
+	if(curcharIndex==12)//seq typed
+	{
+		curcharIndex=0;
+		Seqs[trialId][3]=typestring;
+		Seqs[trialId][4]=typetimes;
+		console.log(Seqs[trialId]);
+		trialId++;		
+		seqDiv.innerHTML=generateSequens(Seqs[trialId][0],curcharIndex);
+		typeDiv.innerHTML="";
+		typestring="";
+		typetimes="";
+
+		
+
+		if(trialId%2==0)
+		{
+
+			seqDiv.innerHTML="";
+			typeDiv.innerHTML="";
+			formHTML = 
+			formHTML="<form name='questions'>";
+			formHTML+="<input type='radio' name='ques' value='yes'>Yes<br>";
+			formHTML+="<input type='radio' name='ques' value='no'>No</form>";
+			formHTML+="<button id='answ' onclick='gonnext()'>Next »</button>";
+			questDiv.innerHTML = formHTML;
+		}
+
+	}
+
+	if(Seqs.length==trialId)//end of all trials
+	{
+		//TODO - ի՞նչ անել այսեղ
+	}
 
 }
 
@@ -133,9 +168,22 @@ function step_trials()
 	divv.className="steps";
 	var divv = document.getElementById("trials");
 	divv.className = "steps visible";
-	window.addEventListener("keypress", dealWithKeyboard, false);
+	nextTrial();
+	
 }
 
+function nextTrial()
+{
+	seqDiv.innerHTML=generateSequens(Seqs[trialId][0]);
+	window.addEventListener("keypress", dealWithKeyboard, false);	
+}
+
+function gonnext()
+{
+	console.log(document.forms["questions"]["ques"].value);
+	questDiv.innerHTML="";
+	nextTrial();
+}
 
 function step_resume()
 {
@@ -162,7 +210,6 @@ function randomizearray(t){
 	}
 	return tt; 
 }
-
 
 function makeSequenseArray(inputarray,seqLen,number)
 {
